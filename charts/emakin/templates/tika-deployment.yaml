@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: tika
+  name: tika
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: tika
+  template:
+    metadata:
+      labels:
+        service: tika
+    spec:
+      containers:
+        - image: 6kare/tika2
+          name: tika
+          ports:
+            - containerPort: 9998
+              protocol: TCP
+      restartPolicy: Always

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: postgre
+  name: postgre
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: postgre
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: postgre
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: ALTIKARE
+            - name: POSTGRES_PASSWORD
+              value: ALTIKARE
+            - name: POSTGRES_USER
+              value: ALTIKARE
+          image: postgres
+          name: postgre
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: pgdata
+      restartPolicy: Always
+      volumes:
+        - name: pgdata
+          persistentVolumeClaim:
+            claimName: pgdata

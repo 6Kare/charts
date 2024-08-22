@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: clamav
+  name: clamav
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: clamav
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: clamav
+    spec:
+      containers:
+        - image: clamav/clamav:latest
+          name: clamav
+          ports:
+            - containerPort: 3310
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/clamav
+              name: clamavdata
+      restartPolicy: Always
+      volumes:
+        - name: clamavdata
+          persistentVolumeClaim:
+            claimName: clamavdata

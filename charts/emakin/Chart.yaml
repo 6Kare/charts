@@ -1,0 +1,10 @@
+apiVersion: v2
+name: emakin
+home: www.emakin.com
+description: Helm chart for Emakin BPM
+keywords:
+  - emakin
+  - bpm
+type: application
+version: "8.0.0"
+appVersion: "8.5.139"

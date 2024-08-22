@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: basex
+  name: basex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: basex
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: basex
+    spec:
+      containers:
+        - image: 6kare/basex
+          name: basex
+          ports:
+            - containerPort: 1984
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /srv/basex/data
+              name: basexdata
+      restartPolicy: Always
+      volumes:
+        - name: basexdata
+          persistentVolumeClaim:
+            claimName: basexdata

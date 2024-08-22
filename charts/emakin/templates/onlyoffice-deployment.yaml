@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: onlyoffice
+  name: onlyoffice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: onlyoffice
+  template:
+    metadata:
+      labels:
+        service: onlyoffice
+    spec:
+      containers:
+        - env:
+            - name: USE_UNAUTHORIZED_STORAGE
+              value: "true"
+            - name: WOPI_ENABLED
+              value: "true"
+          image: onlyoffice/documentserver
+          name: onlyoffice
+          ports:
+            - containerPort: 80
+              protocol: TCP
+            - containerPort: 443
+              protocol: TCP
+      restartPolicy: Always
