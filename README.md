@@ -1,10 +1,14 @@
-Emakin Helm Repository
+# Emakin Helm Repository
 
+## Add Repository
 Add Emakin repository to helm
 
-  helm repo add emakin https://6kare.github.io/charts/
+```
+helm repo add emakin https://6kare.github.io/charts/
+```
 
-Install emakin
+## Installation
 
-  helm install hello emakin/emakin
-
+```
+helm install hello emakin/emakin
+```
