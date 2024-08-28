@@ -17,7 +17,7 @@ spec:
         service: basex
     spec:
       containers:
-        - image: 6kare/basex
+        - image: 6kare/basex:latest
           name: basex
           ports:
             - containerPort: 1984

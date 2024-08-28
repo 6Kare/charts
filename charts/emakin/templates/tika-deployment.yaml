@@ -15,7 +15,7 @@ spec:
         service: tika
     spec:
       containers:
-        - image: 6kare/tika2
+        - image: 6kare/tika2:latest
           name: tika
           ports:
             - containerPort: 9998

@@ -20,7 +20,7 @@ spec:
               value: "true"
             - name: WOPI_ENABLED
               value: "true"
-          image: onlyoffice/documentserver
+          image: onlyoffice/documentserver:8.0
           name: onlyoffice
           ports:
             - containerPort: 80

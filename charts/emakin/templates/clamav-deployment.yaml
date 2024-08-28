@@ -17,7 +17,7 @@ spec:
         service: clamav
     spec:
       containers:
-        - image: clamav/clamav:latest
+        - image: clamav/clamav:1.4
           name: clamav
           ports:
             - containerPort: 3310

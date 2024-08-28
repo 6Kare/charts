@@ -23,7 +23,7 @@ spec:
             - name: AK_BasexConnStr
               value: http://admin:admin@basex:1984/
             - name: AK_DbConnStr
-              value: Host=postgre;Database=ALTIKARE;Username=ALTIKARE;Password=ALTIKARE;
+              value: Host=postgre;Database={{ .Values.db_name }};Username={{ .Values.db_user }};Password={{ .Values.db_password }};
             - name: AK_DbProvider
               value: PostgreSql
             - name: AK_RedisConnStr
@@ -32,6 +32,10 @@ spec:
               value: http://tika:9998/
             - name: AK_WopiConnStr
               value: http://onlyoffice/hosting/discovery
+            - name: AK_DEFAULT_ADMIN
+              value: {{ .Values.emk_admin }}
+            - name: AK_DEFAULT_ADMIN_PASSWORD
+              value: {{ .Values.emk_password }}
           image: 6kare/emakin:8.5
           name: emakin
           ports:

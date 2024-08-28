@@ -19,12 +19,12 @@ spec:
       containers:
         - env:
             - name: POSTGRES_DB
-              value: ALTIKARE
+              value: {{ .Values.db_name }}
             - name: POSTGRES_PASSWORD
-              value: ALTIKARE
+              value: {{ .Values.db_password }}
             - name: POSTGRES_USER
-              value: ALTIKARE
-          image: postgres
+              value: {{ .Values.db_user }}
+          image: postgres:16.2-alpine
           name: postgre
           ports:
             - containerPort: 5432

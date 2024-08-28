@@ -1,2 +1,6 @@
 replicaCount: 1
-
+db_name: EMAKIN
+db_user: EMAKIN
+db_password: EMAKIN
+emk_admin: admin@emakin.com
+emk_password: admin
