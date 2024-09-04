@@ -1,0 +1,73 @@
+version: '3'
+services:
+    web:
+        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/emakin:8.5.0
+        ports:
+            - "80:80"
+            - "443:443"
+            - "7180:7180"
+            - "25:25"
+            - "587:587"
+            - "465:465"
+        depends_on:
+            - redis
+            - postgre
+            - basex
+            - tika
+        volumes:
+            - "emkdata:/app/Configuration/Data"
+        environment:
+            - AK_DbProvider=PostgreSql
+            - AK_DbConnStr=Host=postgre;Database=ALTIKARE;Username=ALTIKARE;Password=ALTIKARE;
+            - AK_RedisConnStr=redis,allowAdmin=true
+            - AK_BasexConnStr=http://admin:admin@basex:1984/
+            - AK_TikaConnStr=http://tika:9998/
+            - AK_WopiConnStr=http://onlyoffice:81/hosting/discovery
+            - AK_AntivirusServerUrl=tcp://clamav:3310
+    postgre:
+        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/postgres:16.2.0-alpine
+        restart: always
+        volumes:
+            # - "/var/run/postgres/postgres.sock:/var/run/postgres/postgres.sock"
+            - "pgdata:/var/lib/postgresql/data"
+        environment:
+            - POSTGRES_USER=ALTIKARE
+            - POSTGRES_PASSWORD=ALTIKARE
+            - POSTGRES_DB=ALTIKARE
+    redis:
+        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/redis:7.2.0-alpine
+        expose:
+            - "6379"
+    basex:
+        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/basex:1.0
+        expose:
+            - "1984"
+        volumes:
+            - "basexdata:/srv/basex/data"
+    tika:
+        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/tika:1.0.0
+        restart: always
+        expose:
+            - 9998
+    onlyoffice:
+        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/onlyoffice:8.0.0
+        restart: always
+        environment:
+            USE_UNAUTHORIZED_STORAGE: "true"
+            WOPI_ENABLED: "true"
+        expose:
+            - "81:80"
+            - "8443:443"
+    clamav:
+        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/clamav:1.4
+        restart: always
+        expose:
+            - 3310
+        volumes:
+            - "clamavdata:/var/lib/clamav"
+
+volumes:
+    emkdata:
+    pgdata:
+    basexdata:
+    clamavdata:
