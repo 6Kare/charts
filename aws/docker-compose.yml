@@ -1,7 +1,7 @@
 version: '3'
 services:
     web:
-        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/emakin:8.5.0
+        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/emakin:8.5.144
         ports:
             - "80:80"
             - "443:443"
@@ -25,7 +25,7 @@ services:
             - AK_WopiConnStr=http://onlyoffice:81/hosting/discovery
             - AK_AntivirusServerUrl=tcp://clamav:3310
     postgre:
-        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/postgres:16.2.0-alpine
+        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/postgres:16.3.0-alpine
         restart: always
         volumes:
             # - "/var/run/postgres/postgres.sock:/var/run/postgres/postgres.sock"
@@ -59,7 +59,7 @@ services:
             - "81:80"
             - "8443:443"
     clamav:
-        image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/emakin/clamav:1.4
+        image: clamav/clamav:1.4
         restart: always
         expose:
             - 3310

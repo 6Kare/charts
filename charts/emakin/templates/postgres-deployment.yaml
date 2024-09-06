@@ -24,7 +24,7 @@ spec:
               value: {{ .Values.db_password }}
             - name: POSTGRES_USER
               value: {{ .Values.db_user }}
-          image: postgres:16.2-alpine
+          image: postgres:16.3-alpine
           name: postgre
           ports:
             - containerPort: 5432
