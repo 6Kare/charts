@@ -2,16 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: emakin-tcp
-  name: emakin-tcp
+    service: emakin-hostadm
+  name: emakin-hostadm
 spec:
   ports:
-    - name: "80"
-      port: 80
-      targetPort: 80
-    - name: "443"
-      port: 443
-      targetPort: 443
     - name: "7180"
       port: 7180
       targetPort: 7180
