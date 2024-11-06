@@ -10,5 +10,5 @@ helm repo add emakin https://6kare.github.io/charts/
 ## Installation
 
 ```
-helm install hello emakin/emakin
+helm install hello emakin/emakin --create-namespace --namespace emakin
 ```
