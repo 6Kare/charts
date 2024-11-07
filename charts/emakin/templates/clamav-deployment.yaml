@@ -1,20 +1,21 @@
+{{- if .Values.clamav.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: clamav
+    app: clamav
   name: clamav
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: clamav
+      app: clamav
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        service: clamav
+        app: clamav
     spec:
       containers:
         - image: clamav/clamav:1.4.1
@@ -25,8 +26,8 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/clamav
               name: clamavdata
-      restartPolicy: Always
       volumes:
         - name: clamavdata
           persistentVolumeClaim:
-            claimName: clamavdata
+            claimName: clamav-pvc
+{{- end }}

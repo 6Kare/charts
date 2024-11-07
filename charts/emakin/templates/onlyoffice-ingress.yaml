@@ -1,9 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: emakin-ingress
+  name: onlyoffice-ingress
   labels:
-    app: emakin
+    app: onlyoffice
   annotations:
     {{- if .Values.letsencrypt.enabled }}
     cert-manager.io/issuer: letsencrypt
@@ -13,12 +13,12 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingressClass }}
   rules:
-    - host: {{ .Values.emakin.subdomain }}.{{ .Values.host }}
+    - host: {{ .Values.onlyoffice.subdomain }}.{{ .Values.host }}
       http:
         paths:
           - backend:
               service:
-                name: emakin-web
+                name: onlyoffice-web
                 port:
                   number: 80
             path: /
@@ -26,6 +26,6 @@ spec:
   {{- if .Values.letsencrypt.enabled }}
   tls:
     - hosts:
-        - {{ .Values.emakin.subdomain }}.{{ .Values.host }}
-      secretName: emakin-https
+        - {{ .Values.onlyoffice.subdomain }}.{{ .Values.host }}
+      secretName: onlyoffice-https
   {{- end }}

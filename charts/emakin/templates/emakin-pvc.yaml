@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: emakin
+  name: emakin-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: {{ .Values.storageClass }}
+  resources:
+    requests:
+      storage: 30Gi
+  volumeMode: Filesystem
+  volumeName: emakin-pv

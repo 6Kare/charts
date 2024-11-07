@@ -1,20 +1,21 @@
+{{- if eq .Values.db.externalConnection "" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: postgre
-  name: postgre
+    app: postgres
+  name: postgres
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: postgre
+      app: postgres
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        service: postgre
+        app: postgres
     spec:
       containers:
         - env:
@@ -27,7 +28,7 @@ spec:
             - name: PGDATA
               value: /var/lib/postgresql/data/emakin/
           image: postgres:16.3-alpine
-          name: postgre
+          name: postgres
           ports:
             - containerPort: 5432
               protocol: TCP
@@ -38,4 +39,5 @@ spec:
       volumes:
         - name: pgdata
           persistentVolumeClaim:
-            claimName: pgdata
+            claimName: postgres-pvc
+{{- end }}

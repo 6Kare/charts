@@ -1,14 +1,12 @@
+{{- if .Values.emakin.smtp.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: emakin-hostadm
-  name: emakin-hostadm
+    app: emakin
+  name: emakin-smtp
 spec:
   ports:
-    - name: "7180"
-      port: 7180
-      targetPort: 7180
     - name: "25"
       port: 25
       targetPort: 25
@@ -19,5 +17,6 @@ spec:
       port: 465
       targetPort: 465
   selector:
-    service: emakin
+    app: emakin
   type: LoadBalancer
+{{- end }}

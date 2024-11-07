@@ -2,19 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: basex
+    app: basex
   name: basex
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: basex
+      app: basex
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        service: basex
+        app: basex
     spec:
       containers:
         - image: 6kare/basex:latest
@@ -25,8 +25,7 @@ spec:
           volumeMounts:
             - mountPath: /srv/basex/data
               name: basexdata
-      restartPolicy: Always
       volumes:
         - name: basexdata
           persistentVolumeClaim:
-            claimName: basexdata
+            claimName: basex-pvc

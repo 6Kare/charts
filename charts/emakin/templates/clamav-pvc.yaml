@@ -1,0 +1,17 @@
+{{- if .Values.clamav.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: clamav
+  name: clamav-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: {{ .Values.storageClass }}
+  resources:
+    requests:
+      storage: 100Mi
+  volumeMode: Filesystem
+  volumeName: clamav
+{{- end }}

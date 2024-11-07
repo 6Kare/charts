@@ -2,17 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: redis
+    app: redis
   name: redis
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: redis
+      app: redis
   template:
     metadata:
       labels:
-        service: redis
+        app: redis
     spec:
       containers:
         - image: redis:7.2-alpine
@@ -20,4 +20,4 @@ spec:
           ports:
             - containerPort: 6379
               protocol: TCP
-      restartPolicy: Always
+

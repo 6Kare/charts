@@ -1,0 +1,16 @@
+{{- if .Values.emakin.hostadm.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: emakin
+  name: emakin-hostadm
+spec:
+  ports:
+    - name: "7180"
+      port: {{ .Values.emakin.hostadm.port }}
+      targetPort: 7180
+  selector:
+    app: emakin
+  type: LoadBalancer
+{{- end }}

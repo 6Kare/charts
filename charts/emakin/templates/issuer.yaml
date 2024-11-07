@@ -1,0 +1,21 @@
+{{- if .Values.letsencrypt.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    {{- if eq .Values.letsencrypt.email "" }}
+    email: info@{{ .Values.emakin.host }}
+    {{- else }}
+    email: {{ .Values.letsencrypt.email }}
+    {{- end }}
+    preferredChain: ''
+    privateKeySecretRef:
+      name: letsencrypt-privatekey
+    server: {{ if eq .Values.letsencrypt.environment "production"  }} https://acme-v02.api.letsencrypt.org/directory {{ else }} https://acme-staging-v02.api.letsencrypt.org/directory {{ end }}
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
+{{- end }}

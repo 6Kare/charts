@@ -1,18 +1,19 @@
+{{- if .Values.onlyoffice.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: onlyoffice
+    app: onlyoffice
   name: onlyoffice
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: onlyoffice
+      app: onlyoffice
   template:
     metadata:
       labels:
-        service: onlyoffice
+        app: onlyoffice
     spec:
       containers:
         - env:
@@ -28,3 +29,4 @@ spec:
             - containerPort: 443
               protocol: TCP
       restartPolicy: Always
+{{- end }}

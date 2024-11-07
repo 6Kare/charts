@@ -2,40 +2,53 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: emakin
+    app: emakin
   name: emakin
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: emakin
+      app: emakin
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        service: emakin
+        app: emakin
     spec:
       containers:
         - env:
+            {{- if .Values.clamav.enabled }}
             - name: AK_AntivirusServerUrl
               value: tcp://clamav:3310
+            {{- end }}
             - name: AK_BasexConnStr
               value: http://admin:admin@basex:1984/
-            - name: AK_DbConnStr
-              value: Host=postgre;Database={{ .Values.db_name }};Username={{ .Values.db_user }};Password={{ .Values.db_password }};
+            {{- if eq .Values.db.externalConnection "" }}
             - name: AK_DbProvider
               value: PostgreSql
+            - name: AK_DbConnStr
+              value: Host=postgre;Database={{ .Values.db.name }};Username={{ .Values.db.user }};Password={{ .Values.db.password }};
+            {{- else }}
+            - name: AK_DbProvider
+              value: {{ .Values.db.externalProvider }}
+            - name: AK_DbConnStr
+              value: {{ .Values.db.externalConnection }};
+            {{- end }}
             - name: AK_RedisConnStr
               value: redis,allowAdmin=true
+            {{ if .Values.tika.enabled }}
             - name: AK_TikaConnStr
               value: http://tika:9998/
+            {{- end }}
+            {{ if .Values.onlyoffice.enabled }}
             - name: AK_WopiConnStr
               value: http://onlyoffice/hosting/discovery
+            {{- end }}
             - name: AK_DEFAULT_ADMIN
-              value: {{ .Values.emk_admin }}
+              value: {{ .Values.emakin.admin }}
             - name: AK_DEFAULT_ADMIN_PASSWORD
-              value: {{ .Values.emk_password }}
+              value: {{ .Values.emakin.password }}
           image: 6kare/emakin:8.5
           name: emakin
           ports:
@@ -55,13 +68,12 @@ spec:
               protocol: TCP
           volumeMounts:
             - mountPath: /app/Configuration/Data
-              name: emkdata
-      restartPolicy: Always
+              name: emakin-data
       securityContext:
-          sysctls:
-              - name: net.ipv4.ip_unprivileged_port_start
-                value: '0'
+        sysctls:
+          - name: net.ipv4.ip_unprivileged_port_start
+            value: '0'
       volumes:
-        - name: emkdata
+        - name: emakin-data
           persistentVolumeClaim:
-            claimName: emkdata
+            claimName: emakin-pvc
