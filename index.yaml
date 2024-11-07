@@ -3,6 +3,21 @@ entries:
   emakin:
   - apiVersion: v2
     appVersion: "8.5"
+    created: "2024-11-07T13:20:55.416333645Z"
+    description: Helm chart for Emakin BPM
+    digest: dfd91fd7242de4df967419101d50d2671464806ef1b8e6363f2662f743367f7e
+    home: www.emakin.com
+    icon: https://static.emakin.com/icons/icon.svg
+    keywords:
+    - emakin
+    - bpm
+    name: emakin
+    type: application
+    urls:
+    - https://github.com/6Kare/charts/releases/download/emakin-8.5.3/emakin-8.5.3.tgz
+    version: 8.5.3
+  - apiVersion: v2
+    appVersion: "8.5"
     created: "2024-10-10T06:33:17.505066088Z"
     description: Helm chart for Emakin BPM
     digest: 5c231ea38043efedd315453b670f964d7ced7818cf747ad92320be04f45da1a7
@@ -121,4 +136,4 @@ entries:
     urls:
     - https://github.com/6Kare/charts/releases/download/emakin-8.0.1/emakin-8.0.1.tgz
     version: 8.0.1
-generated: "2024-10-10T06:33:17.505102165Z"
+generated: "2024-11-07T13:20:55.416380652Z"
