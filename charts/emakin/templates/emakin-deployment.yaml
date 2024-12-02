@@ -20,15 +20,15 @@ spec:
         - env:
             {{- if .Values.clamav.enabled }}
             - name: AK_AntivirusServerUrl
-              value: tcp://clamav:3310
+              value: tcp://clamav-service:3310
             {{- end }}
             - name: AK_BasexConnStr
-              value: http://admin:admin@basex:1984/
+              value: http://admin:admin@basex-service:1984/
             {{- if eq .Values.db.externalConnection "" }}
             - name: AK_DbProvider
               value: PostgreSql
             - name: AK_DbConnStr
-              value: Host=postgre;Database={{ .Values.db.name }};Username={{ .Values.db.user }};Password={{ .Values.db.password }};
+              value: Host=postgre-service;Database={{ .Values.db.name }};Username={{ .Values.db.user }};Password={{ .Values.db.password }};
             {{- else }}
             - name: AK_DbProvider
               value: {{ .Values.db.externalProvider }}
@@ -36,19 +36,23 @@ spec:
               value: {{ .Values.db.externalConnection }};
             {{- end }}
             - name: AK_RedisConnStr
-              value: redis,allowAdmin=true
+              value: redis-service,allowAdmin=true
             {{ if .Values.tika.enabled }}
             - name: AK_TikaConnStr
-              value: http://tika:9998/
+              value: http://tika-service:9998/
             {{- end }}
             {{ if .Values.onlyoffice.enabled }}
             - name: AK_WopiConnStr
-              value: http://onlyoffice/hosting/discovery
+              value: http://{{ .Values.onlyoffice.subdomain }}.{{ .Values.host }}/hosting/discovery
             {{- end }}
             - name: AK_DEFAULT_ADMIN
               value: {{ .Values.emakin.admin }}
             - name: AK_DEFAULT_ADMIN_PASSWORD
               value: {{ .Values.emakin.password }}
+            - name: AK_Web__ForwardedHeaders__ClearProxies
+              value: "true"
+            - name: AK_Web__ForwardedHeaders__ClearKnownNetworks
+              value: "true"
           image: 6kare/emakin:8.5
           name: emakin
           ports:

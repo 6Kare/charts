@@ -13,5 +13,5 @@ spec:
     requests:
       storage: 100Mi
   volumeMode: Filesystem
-  volumeName: clamav
+  volumeName: clamav-pv
 {{- end }}
