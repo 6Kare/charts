@@ -28,7 +28,7 @@ spec:
             - name: AK_DbProvider
               value: PostgreSql
             - name: AK_DbConnStr
-              value: Host=postgre-service;Database={{ .Values.db.name }};Username={{ .Values.db.user }};Password={{ .Values.db.password }};
+              value: Host=postgres-service;Database={{ .Values.db.name }};Username={{ .Values.db.user }};Password={{ .Values.db.password }};
             {{- else }}
             - name: AK_DbProvider
               value: {{ .Values.db.externalProvider }}

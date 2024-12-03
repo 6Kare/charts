@@ -2,6 +2,7 @@ replicaCount: 1
 storageClass: nfs
 ingressClass: nginx
 host: mycompany.com
+externalIP: ""
 emakin:
   subdomain: emakin
   admin: admin@emakin.com

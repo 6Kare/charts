@@ -13,4 +13,6 @@ spec:
   selector:
     app: emakin
   type: LoadBalancer
+  externalIPs:
+    - {{ .Values.externalIP }}
 {{- end }}
