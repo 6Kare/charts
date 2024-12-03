@@ -13,5 +13,5 @@ spec:
     requests:
       storage: 50Gi
   volumeMode: Filesystem
-  volumeName: postgres
+  volumeName: postgres-pv-{{ .Values.environment }}
 {{- end }}

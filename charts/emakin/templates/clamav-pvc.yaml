@@ -13,5 +13,5 @@ spec:
     requests:
       storage: 100Mi
   volumeMode: Filesystem
-  volumeName: clamav-pv
+  volumeName: clamav-pv-{{ .Values.environment }}
 {{- end }}

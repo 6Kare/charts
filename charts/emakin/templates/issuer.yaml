@@ -13,7 +13,7 @@ spec:
     preferredChain: ''
     privateKeySecretRef:
       name: letsencrypt-privatekey
-    server: {{ if eq .Values.letsencrypt.environment "production"  }} https://acme-v02.api.letsencrypt.org/directory {{ else }} https://acme-staging-v02.api.letsencrypt.org/directory {{ end }}
+    server: {{ if eq .Values.environment "production"  }} https://acme-v02.api.letsencrypt.org/directory {{ else }} https://acme-staging-v02.api.letsencrypt.org/directory {{ end }}
     solvers:
       - http01:
           ingress:

@@ -3,6 +3,7 @@ storageClass: nfs
 ingressClass: nginx
 host: mycompany.com
 externalIP: ""
+environment: production
 emakin:
   subdomain: emakin
   admin: admin@emakin.com
@@ -21,7 +22,6 @@ db:
 letsencrypt:
   enabled: true
   email: ""
-  environment: "production"
 onlyoffice:
   enabled: true
   subdomain: oeditor
