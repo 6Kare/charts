@@ -20,11 +20,11 @@ spec:
       containers:
         - env:
             - name: POSTGRES_DB
-              value: {{ .Values.db_name }}
+              value: {{ .Values.db.name }}
             - name: POSTGRES_PASSWORD
-              value: {{ .Values.db_password }}
+              value: {{ .Values.db.password }}
             - name: POSTGRES_USER
-              value: {{ .Values.db_user }}
+              value: {{ .Values.db.user }}
             - name: PGDATA
               value: /var/lib/postgresql/data/emakin/
           image: postgres:16.3-alpine
