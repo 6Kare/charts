@@ -26,7 +26,7 @@ spec:
               value: http://admin:admin@basex-service:1984/
             {{- if eq .Values.db.externalConnection "" }}
             - name: AK_DbProvider
-              value: PostgreSql
+              value: Postgres
             - name: AK_DbConnStr
               value: Host=postgres-service;Database={{ .Values.db.name }};Username={{ .Values.db.user }};Password={{ .Values.db.password }};
             {{- else }}
@@ -36,7 +36,7 @@ spec:
               value: {{ .Values.db.externalConnection }};
             {{- end }}
             - name: AK_RedisConnStr
-              value: redis-service,allowAdmin=true
+              value: redis-service,allowAdmin=true,abortConnect=false
             {{ if .Values.tika.enabled }}
             - name: AK_TikaConnStr
               value: http://tika-service:9998/

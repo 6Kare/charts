@@ -14,7 +14,7 @@ emakin:
     enabled: true
     port: 7180
 db:
-  externalProvider: ""
+  externalProvider: Postgres
   externalConnection: ""
   name: EMAKIN
   user: EMAKIN
