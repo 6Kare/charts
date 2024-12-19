@@ -53,6 +53,8 @@ spec:
               value: "true"
             - name: AK_Web__ForwardedHeaders__ClearKnownNetworks
               value: "true"
+            - name: AK_Web__DisableHTTPSRedirect
+              value: "true"
           image: 6kare/emakin:8.5
           name: emakin
           ports:
